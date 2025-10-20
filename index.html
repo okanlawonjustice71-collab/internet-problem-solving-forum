@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solving the Internet: Your Problems, Our Ideas</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .program-structure h2,
+        .examples h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+
+        .timeline {
+            margin-top: 1.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .timeline-marker {
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            margin-right: 1rem;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #764ba2;
+        }
+
+        .example-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .problem-tag {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-tag {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .idea-tag {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .form-container h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .success-message h2 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-content {
+            color: #7f8c8d;
+        }
+
+        .powered-by {
+            margin-top: 0.5rem;
+        }
+
+        .justice-tech-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .justice-tech-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Solving the Internet</h1>
+            <p class="subtitle">Your Problems, Our Ideas - A Talk Program</p>
+        </header>
+
+        <div class="main-content">
+            <div class="content-card program-structure">
+                <h2>Program Structure</h2>
+                <p>Join our interactive talk program where we discuss common internet problems and brainstorm creative solutions together.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Introduction (5-7 min)</h3>
+                            <p>Setting the stage and explaining the program objectives.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Discussion (30-40 min)</h3>
+                            <p>Share problems and brainstorm solutions in three key areas.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <h3>Wrap-up (5 min)</h3>
+                            <p>Summary of ideas and next steps.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card examples">
+                <h2>Example Topics</h2>
+                
+                <div class="example-card">
+                    <span class="problem-tag">Problem</span>
+                    <h3>Information Overload & Fake News</h3>
+                    <p>"I can never tell if a news article is credible or just clickbait."</p>
+                    
+                    <span class="solution-tag">Developer Solution</span>
+                    <p>Browser extensions that display credibility scores and fact-checking indicators.</p>
+                    
+                    <span class="idea-tag">Website Idea</span>
+                    <p><strong>TruthLens</strong> - A platform that aggregates news and shows consensus views with bias analysis.</p>
+                </div>
+
+                <div class="example-card">
+                    <span class="problem-tag">Problem</span>
+                    <h3>Digital Clutter & Subscriptions</h3>
+                    <p>"I can't track all my subscriptions and what I'm actually paying for."</p>
+                    
+                    <span class="solution-tag">Developer Solution</span>
+                    <p>Universal subscription management API for centralized control.</p>
+                    
+                    <span class="idea-tag">Website Idea</span>
+                    <p><strong>SubZen</strong> - A dashboard showing all subscriptions with spending analytics and easy cancellation.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container" id="ideaForm">
+            <h2>Share Your Ideas</h2>
+            <form id="problemSolvingForm" action="https://formspree.io/f/xrbyvpbjD" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name </label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email </label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="problem">What internet problem did you encounter? *</label>
+                    <textarea id="problem" name="problem" placeholder="Describe the problem you face when using the internet..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="solution">What should developers do to solve this? *</label>
+                    <textarea id="solution" name="solution" placeholder="What technical or design solutions would you suggest?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="websiteIdea">What type of website/app could make life easier? *</label>
+                    <textarea id="websiteIdea" name="websiteIdea" placeholder="Describe your idea for a new website or app..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Your Ideas</button>
+            </form>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <h2>Thank You! 🎉</h2>
+            <p>Thank you for sharing your valuable ideas with us. Your input helps shape the future of a better internet!</p>
+            <p>We'll review your suggestions and they might be featured in our next talk program.</p>
+            <button class="submit-btn" onclick="showForm()">Submit Another Idea</button>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <p>Join the conversation to make the internet better for everyone</p>
+                <div class="powered-by">
+                    <p>Powered by <a href="https://okanlawonjustice71-collab.github.io/justicetech/" class="justice-tech-link" target="_blank">Justice Tech</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Form submission handling
+        document.getElementById('problemSolvingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Using Formspree with fetch API
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    document.getElementById('ideaForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    // Reset form
+                    document.getElementById('problemSolvingForm').reset();
+                } else {
+                    alert('There was a problem submitting your form. Please try again.');
+                }
+            })
+            .catch(error => {
+                alert('There was a problem submitting your form. Please try again.');
+            });
+        });
+
+        // Function to show form again
+        function showForm() {
+            document.getElementById('ideaForm').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to cards on scroll
+            const cards = document.querySelectorAll('.content-card, .form-container, .success-message');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
